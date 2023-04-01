@@ -106,6 +106,17 @@
 
     <repositories>
         <repository>
+            <id>nexus</id>
+            <url>http://ds.com:8081/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
             <id>public</id>
             <url>https://maven.aliyun.com/repository/public</url>
             <releases>
@@ -169,13 +180,13 @@
         <repository>
             <id>maven-releases</id>
             <name>nexus-releases</name>
-            <url>http://dy.com:8011/nexus/repository/maven-releases/</url>
+            <url>http://ds.com:8081/repository/maven-releases/</url>
         </repository>
 
         <snapshotRepository>
             <id>maven-snapshots</id>
             <name>nexus-snapshots</name>
-            <url>http://dy.com:8011/repository/maven-snapshots/</url>
+            <url>http://ds.com:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
