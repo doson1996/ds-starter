@@ -2,6 +2,8 @@ package com.ds.starter.swagger;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Map;
+
 /**
  * @author ds
  */
@@ -12,6 +14,11 @@ public class SwaggerProperties {
      * 是否开启swagger
      */
     private boolean enable = false;
+
+    /**
+     * 自定义响应状态 k 状态码 v 说明
+     */
+    private Map<Integer, String> responseMessages;
 
     private String title = "";
 
@@ -35,6 +42,14 @@ public class SwaggerProperties {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public Map<Integer, String> getResponseMessages() {
+        return responseMessages;
+    }
+
+    public void setResponseMessages(Map<Integer, String> responseMessages) {
+        this.responseMessages = responseMessages;
     }
 
     public String getTitle() {
@@ -100,4 +115,7 @@ public class SwaggerProperties {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+
 }
