@@ -5,13 +5,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author ds
  */
-@ConfigurationProperties(prefix = "ds.swagger")
+@ConfigurationProperties(prefix = "spring.swagger")
 public class SwaggerProperties {
 
     /**
      * 是否开启swagger
      */
-    private boolean enable = true;
+    private boolean enable = false;
 
     private String title = "";
 

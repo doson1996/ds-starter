@@ -22,15 +22,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <hutool.version>5.8.11</hutool.version>
-        <fastjson.version>1.2.78</fastjson.version>
-        <redisson.version>3.16.1</redisson.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger-ui.version>1.9.6</swagger-ui.version>
-
-        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
-        <spring-cloud-dubbo.version>2.2.7.RELEASE</spring-cloud-dubbo.version>
     </properties>
 
     <!-- 模块 -->
@@ -54,34 +47,6 @@
     <!-- 依赖管理 -->
     <dependencyManagement>
         <dependencies>
-            <!-- 模块 -->
-
-            <!-- 工具 -->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-
-            <!-- DB -->
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
-
             <!-- swagger-->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -100,7 +65,6 @@
                 <artifactId>swagger-bootstrap-ui</artifactId>
                 <version>${swagger-ui.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
