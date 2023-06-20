@@ -46,12 +46,14 @@ public class SwaggerAutoConfiguration {
         // 响应状态
         List<ResponseMessage> responseMessages = new ArrayList<>();
         Map<Integer, String> responseMessagesConfig = properties.getResponseMessages();
-        responseMessagesConfig.forEach((code, message) ->{
-            responseMessages.add(new ResponseMessageBuilder()
-                    .code(code)
-                    .message(message)
-                    .responseModel(new ModelRef(message)).build());
-        });
+        if (responseMessagesConfig != null) {
+            responseMessagesConfig.forEach((code, message) -> {
+                responseMessages.add(new ResponseMessageBuilder()
+                        .code(code)
+                        .message(message)
+                        .responseModel(new ModelRef(message)).build());
+            });
+        }
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .globalResponseMessage(RequestMethod.GET, responseMessages)
