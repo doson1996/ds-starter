@@ -116,6 +116,4 @@ public class SwaggerProperties {
         this.email = email;
     }
 
-
-
 }
