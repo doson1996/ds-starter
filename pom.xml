@@ -36,6 +36,7 @@
     <!-- 模块 -->
     <modules>
         <module>swagger-spring-boot-starter</module>
+        <module>check-spring-boot-starter</module>
     </modules>
 
     <dependencies>
