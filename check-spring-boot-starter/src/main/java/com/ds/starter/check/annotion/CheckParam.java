@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 /**
  * todo 子类拿不到注解
  * 加上此注解的方法执行参数校验 {@see RequestCheck.check}
+ * @author ds
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})

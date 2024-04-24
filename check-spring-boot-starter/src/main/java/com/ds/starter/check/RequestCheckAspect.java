@@ -1,6 +1,6 @@
 package com.ds.starter.check;
 
-import com.ds.nas.lib.common.base.request.BaseRequest;
+// import com.ds.nas.lib.common.base.request.BaseRequest;
 import com.ds.starter.check.annotion.CheckParam;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -29,9 +29,9 @@ public class RequestCheckAspect {
     public void checkParameter(JoinPoint joinPoint, CheckParam checkParam) throws Throwable {
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
-            if (arg instanceof BaseRequest) {
-                RequestCheck.check((BaseRequest) arg);
-            }
+//            if (arg instanceof BaseRequest) {
+//                RequestCheck.check((BaseRequest) arg);
+//            }
         }
     }
 
