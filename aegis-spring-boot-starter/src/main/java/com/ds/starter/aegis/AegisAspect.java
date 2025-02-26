@@ -10,7 +10,6 @@ import org.aspectj.lang.annotation.Before;
 import org.redisson.api.RRateLimiter;
 import org.redisson.api.RedissonClient;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
@@ -20,7 +19,6 @@ import org.springframework.util.StringUtils;
  */
 @Order(30)
 @Aspect
-@Component
 public class AegisAspect {
 
     @Resource
