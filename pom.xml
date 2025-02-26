@@ -27,7 +27,7 @@
         <lombok.version>1.18.30</lombok.version>
         <hutool.version>5.8.25</hutool.version>
         <fastjson.version>1.2.78</fastjson.version>
-        <redisson.version>3.16.1</redisson.version>
+        <redisson.version>3.42.0</redisson.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger-ui.version>1.9.6</swagger-ui.version>
 
@@ -39,7 +39,8 @@
     <!-- 模块 -->
     <modules>
         <module>swagger-spring-boot-starter</module>
-        <module>check-spring-boot-starter</module>
+        <module>aegis-spring-boot-starter</module>
+        <!--        <module>check-spring-boot-starter</module>-->
     </modules>
 
     <dependencies>
@@ -89,16 +90,10 @@
                 <version>${fastjson.version}</version>
             </dependency>
 
-            <!-- DB -->
+            <!-- redisson -->
             <dependency>
                 <groupId>org.redisson</groupId>
-                <artifactId>redisson</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
+                <artifactId>redisson-all</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
 
@@ -189,15 +184,15 @@
         <repository>
             <id>maven-releases</id>
             <name>nexus-releases</name>
-<!--  注意地址！不然会报405          -->
-<!--            <url>http://dy.com:8011/nexus/repository/maven-releases/</url>-->
+            <!--  注意地址！不然会报405          -->
+            <!--            <url>http://dy.com:8011/nexus/repository/maven-releases/</url>-->
             <url>http://ds.com:8081/repository/maven-releases/</url>
         </repository>
 
         <snapshotRepository>
             <id>maven-snapshots</id>
             <name>nexus-snapshots</name>
-<!--            <url>http://dy.com:8011/repository/maven-snapshots/</url>-->
+            <!--            <url>http://dy.com:8011/repository/maven-snapshots/</url>-->
             <url>http://ds.com:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
