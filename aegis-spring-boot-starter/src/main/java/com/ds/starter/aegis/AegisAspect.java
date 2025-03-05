@@ -1,7 +1,5 @@
 package com.ds.starter.aegis;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 import javax.annotation.Resource;
 
 import org.aspectj.lang.JoinPoint;
@@ -24,8 +22,6 @@ public class AegisAspect {
     @Resource
     private RedissonClient redissonClient;
 
-    private final ConcurrentHashMap<String, RRateLimiter> rateLimiters = new ConcurrentHashMap<>();
-
     @Before("@annotation(rateLimiterAnno)")
     public void checkParameter(JoinPoint joinPoint, RateLimiter rateLimiterAnno) {
         String className = joinPoint.getSignature().getDeclaringType().getName();
@@ -36,13 +32,8 @@ public class AegisAspect {
             key = rateLimiterAnno.key();
         }
 
-        RRateLimiter rateLimiter = rateLimiters.get(key);
-        if (rateLimiter == null) {
-            rateLimiter = redissonClient.getRateLimiter(key);
-            rateLimiter.setRate(rateLimiterAnno.rateType(), rateLimiterAnno.rate(), rateLimiterAnno.rateInterval(), rateLimiterAnno.rateIntervalUnit());
-            rateLimiters.put(key, rateLimiter);
-        }
-
+        RRateLimiter rateLimiter = redissonClient.getRateLimiter(key);
+        rateLimiter.trySetRate(rateLimiterAnno.rateType(), rateLimiterAnno.rate(), rateLimiterAnno.rateInterval(), rateLimiterAnno.rateIntervalUnit());
         boolean acquire = rateLimiter.tryAcquire(rateLimiterAnno.timeout(), rateLimiterAnno.unit());
         if (!acquire) {
             throw new RuntimeException("服务器繁忙,请稍后再试!");
