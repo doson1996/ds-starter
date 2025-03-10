@@ -29,9 +29,7 @@ public class RequestCheckAspect {
     public void checkParameter(JoinPoint joinPoint, CheckParam checkParam) throws Throwable {
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
-//            if (arg instanceof BaseRequest) {
-//                RequestCheck.check((BaseRequest) arg);
-//            }
+                RequestCheck.check(arg);
         }
     }
 

@@ -2,6 +2,7 @@ package com.ds.starter.swagger;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,6 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ConditionalOnClass(SwaggerResource.class)
 @EnableConfigurationProperties(SwaggerProperties.class)
 @ComponentScan(basePackages = {"com.ds.starter.swagger"})
+@ConditionalOnProperty(name = "ds.swagger.enable", havingValue = "true")
 public class SwaggerAutoConfiguration {
 
     private final SwaggerProperties properties;

@@ -1,15 +1,12 @@
 package com.ds.starter.check;
 
+import java.lang.reflect.Field;
+
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.PhoneUtil;
-import com.ds.nas.lib.common.base.request.BaseRequest;
-import com.ds.nas.lib.common.exception.BusinessException;
-import com.ds.nas.lib.common.result.ResultMsg;
-import com.ds.nas.lib.common.util.StringUtils;
 import com.ds.starter.check.annotion.Check;
-
-import java.lang.reflect.Field;
+import org.springframework.util.StringUtils;
 
 /**
  * @author ds
@@ -23,12 +20,12 @@ public class RequestCheck {
      *
      * @param request
      */
-    public static void check(BaseRequest request) {
-        String msg = ResultMsg.PARAMETER_ERROR_MSG;
+    public static void check(Object request) {
+        String msg = "参数错误";
         if (request == null)
-            throw new BusinessException(msg);
+            throw new RuntimeException(msg);
         try {
-            Class<? extends BaseRequest> clazz = request.getClass();
+            Class<?> clazz = request.getClass();
             Field[] declaredFields = clazz.getDeclaredFields();
             for (Field declaredField : declaredFields) {
                 declaredField.setAccessible(true);
@@ -40,25 +37,25 @@ public class RequestCheck {
                         msg = genMsg(check, declaredField, "为必输!");
                         // 如果为null，直接抛异常
                         if (value == null)
-                            throw new BusinessException(msg);
+                            throw new RuntimeException(msg);
                         // 如果为字符串的情况
                         if (value instanceof String && StringUtils.isEmpty((String) value))
-                            throw new BusinessException(msg);
+                            throw new RuntimeException(msg);
                     }
 
                     // 判断最大长度，maxLen大于0才进行校验
                     if (check.maxLen() > 0) {
                         msg = genMsg(check, declaredField, "最大长度为" + check.maxLen() + "!");
                         // 如果为字符串的情况
-                        if (value instanceof String && StringUtils.length((String) value) > check.maxLen())
-                            throw new BusinessException(msg);
+                        if (value instanceof String && ((String) value).length() > check.maxLen())
+                            throw new RuntimeException(msg);
                     }
 
                     // 判断是否只能为数字(只针对字符串)
                     if (check.onlyNumber()) {
                         msg = genMsg(check, declaredField, "请传入数字!");
                         if (value instanceof String && !NumberUtil.isNumber((String) value))
-                            throw new BusinessException(msg);
+                            throw new RuntimeException(msg);
                     }
 
                     // 判断是否为合格身份证号码(只针对字符串)
@@ -66,7 +63,7 @@ public class RequestCheck {
                         //  msg = StringUtils.isNotBlank(check.msg()) ? check.msg() : "[" + declaredField.getName() + "]请传入合格身份证号码!!";
                         msg = genMsg(check, declaredField, "无效!");
                         if (!IdcardUtil.isValidCard((String) value))
-                            throw new BusinessException(msg);
+                            throw new RuntimeException(msg);
                     }
 
                     // 判断是否为合格手机号码（中国大陆）
@@ -74,13 +71,13 @@ public class RequestCheck {
                         //  msg = StringUtils.isNotBlank(check.msg()) ? check.msg() : "[" + declaredField.getName() + "]请传入合格手机号码!!";
                         msg = genMsg(check, declaredField, "无效!");
                         if (!PhoneUtil.isMobile((String) value))
-                            throw new BusinessException(msg);
+                            throw new RuntimeException(msg);
                     }
 
                 }
             }
         } catch (Exception e) {
-            throw new BusinessException(msg);
+            throw new RuntimeException(msg);
         }
     }
 
@@ -95,7 +92,7 @@ public class RequestCheck {
     private static String genMsg(Check check, Field declaredField, String errorMsg) {
         // 注解报错字段名
         String fieldName = check.fieldName();
-        return StringUtils.isNotBlank(check.msg()) ? check.msg() : "[" + (StringUtils.isNotBlank(fieldName) ? fieldName : declaredField.getName()) + "]" + errorMsg;
+        return StringUtils.hasLength(check.msg()) ? check.msg() : "[" + (StringUtils.hasLength(fieldName) ? fieldName : declaredField.getName()) + "]" + errorMsg;
     }
 
 }
